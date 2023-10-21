@@ -67,6 +67,7 @@ export const checkIfAdminIsLoggedIn = () => {
         return
       }
     //https://brooker-backend.onrender.com
+    //https://brooker-backend.onrender.com
     
 
     //http://localhlost:9090
@@ -213,7 +214,7 @@ export const signupAdmin = (data) => {
     }
   }
 }
-//https://legalll-admin-backend.onrender.com
+//https://brooker-backend.onrender.com
 //https://brooker-backend.onrender.com
 export const fetchUsers = ()=>{
   return async (dispatch, getState) => {
