@@ -1,132 +1,324 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../../common/Home.module.css'
+import styles from '../../common/Home.module.css';
+import { useDispatch } from "react-redux";
+import { deleteWithdraw, fetchWithdraws } from "../../../store/action/userAppStorage";
+import { Loader } from '../../common/HomeLoader';
+import { useNavigate } from 'react-router-dom';
+import { Error } from "../../common/Error";
 import { useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
 
+export const AdminWithdrawsComponent = ({ status }) => {
 
-export const AdminWithrawEditComponent = ({ updateHandler, }) => {
-    let [isData, setIsData] = useState(null)
-    let { color, depositsList } = useSelector(state => state.userAuth)
+    let [isLoading, setIsLoading] = useState(true)
+    let [isError, setIsError] = useState(false)
+    let [withdrawList, setWithdrawList] = useState([])
+    let [filteredWithdraws, setfilteredWithdraws] = useState([])
 
-    let { id } = useParams()
+    //initialising reduzx
+    let dispatch = useDispatch()
+    let navigate = useNavigate()
 
+    let { color } = useSelector(state => state.userAuth)
 
-    let handleChangeHandler = (e, nameField) => {
-        let val = e.target.value
-        setIsData(prev => {
-            prev[`${nameField}`] = val
-            let newData = { ...prev }
-            return newData
-        })
-
-    }
+    let interval
 
 
 
-    let submitHandler = (e) => {
-        e.preventDefault()
-        //patch case on 
-        console.log(isData)
-        updateHandler(isData)
-
-    }
 
     useEffect(() => {
-        let dataObj = depositsList.find(data => data._id.toString() === id.toString())
-
-        setIsData(dataObj)
-
-    }, [id])
+        fetchAllWithdraws()
+    }, [])
 
 
 
 
+    let fetchAllWithdraws = async () => {
+        setIsError(false)
+        let res = await dispatch(fetchWithdraws())
 
-    return (<>
-        <div className={styles.homeScreen} style={{ backgroundColor: color.background }}>
 
-            <div className={styles.timeline} style={{ backgroundColor: color.background }}>
-                <h1 className={styles.timelineHeading}>Edit Client Deposit</h1>
 
-                {depositsList && isData && <form className={styles.editForm} onSubmit={submitHandler}>
+        if (!res.bool) {
+            setIsError(true)
+            setIsLoading(false)
+            return
+        }
+        //do some filtering here
 
-                    <div className={styles.inputCards}>
-                        <label>
-                            Depositor Email
-                        </label>
-                        <input  value={isData.user.email} type='text' readOnly />
+        setWithdrawList(res.message)
+        setfilteredWithdraws(res.message)
+        setIsLoading(false)
+    }
+
+
+
+    let editHandler = (id) => {
+        //navigate to the next page
+        navigate(`/admindashboard/withdraw/${id}`)
+    }
+
+
+    let deleteHandler = async (id) => {
+        //delete this specific case from server
+        setIsError(false)
+        let res = await dispatch(deleteWithdraw(id))
+        if (!res.bool) {
+            setIsError(true)
+            setIsLoading(false)
+            return
+        }
+
+        //filtering the already list
+
+        let filteredArray = withdrawList.filter(data => data._id !== id)
+
+        setWithdrawList(filteredArray)
+        setfilteredWithdraws(filteredArray)
+        setIsLoading(false)
+
+    }
+
+
+
+
+
+    let searchHandler = (e) => {
+        setIsLoading(true)
+        if (e) {
+            const newData = filteredWithdraws.filter((item) => {
+                const itemData = item.user.email ? item.user.email : '';
+                const textData = e.target.value.toLowerCase();
+                return itemData.indexOf(textData) > -1;
+            })
+
+            setWithdrawList(newData)
+            setIsLoading(false)
+        } else {
+            setWithdrawList(filteredWithdraws)
+            setIsLoading(false)
+
+        }
+    }
+
+
+    if (isLoading) {
+        return <Loader />
+    }
+
+    if (isError) {
+        return <Error />
+    }
+
+
+    return (<div className={styles.homeScreen} style={{ backgroundColor: color.background }}>
+
+        <div className={styles.timeline} style={{ backgroundColor: color.background }}>
+            
+
+            <div className={styles.filter}>
+
+                <div className={styles.searchContainer}>
+                    <div className={styles.searchBar}>
+                        < input className={styles.input} placeholder='search' onChange={searchHandler} />
+                        <span className='material-icons'>
+                            search
+                        </span>
+
                     </div>
 
-                    <div className={styles.inputCards}>
-                        <label>
-                            DepositID
-                        </label>
-                        <input  value={isData.depositId} type='text' readOnly/>
-                    </div>
+                </div>
 
-                    <div className={styles.inputCards}>
-                        <label>
-                            Amount
-                        </label>
-                        <input onChange={(e)=>handleChangeHandler(e,'amount')} value={isData.amount} type='text'/>
-                    </div>
-
-                    <div className={styles.inputCards}>
-                        <label>
-                            Type
-                        </label>
-                        <input onChange={(e)=>handleChangeHandler(e,'type')} value={isData.type} type='text'/>
-                    </div>
-
-                    <div className={styles.inputCards}>
-                        <label>
-                            Date
-                        </label>
-                        <input onChange={(e)=>handleChangeHandler(e,'date')} value={isData.date} type='date'/>
-                    </div>
-  
+                <div className={styles.dateFilter}>
+                </div>
 
 
-                    <div className={styles.inputCards}>
-                        <label>
-                            status
-                        </label>
-                        <select onChange={(e) => handleChangeHandler(e, 'status')}
-                            value={isData.status}
-                        >
-                            <option>
-                                active
+            </div>
 
-                            </option>
-                            <option >
-                                Pending
-                            </option>
+            <div className={styles.tableContainer} >
 
-                        </select>
+                {withdrawList.length === 0 && <div className={styles.emptyContainer}>
+                    <p>No withdraw found</p>
+
+                </div>}
+               
 
 
-                    </div>
+                {withdrawList.length !== 0 && <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Withdrawer Name
+                            </td>
+                            <td>
+                                WithdrawID
+                            </td>
+                            <td>
+                                Amount
+
+                            </td>
+                            <td>
+                                Bitcoin address
+
+                            </td>
+                            <td>
+                                Zelle
+
+                            </td>
+                            <td>
+                                Etherium
+
+                            </td>
+                            <td>
+                                Cash App
+
+                            </td>
+
+                            <td>
+                                Method
+
+                            </td>
+                         
+
+                            <td>
+                                Swift
+
+                            </td>
+
+                            <td>
+                                Bank Name
+
+                            </td>
+
+                            <td>
+                                Account Number
+
+                            </td>
+
+                            <td>
+                                Account Name
+
+                            </td>
+
+                            <td>
+                                Gcash Phone
+
+                            </td>
+
+                            <td>
+                                Gcash Number
+
+                            </td>
+                            
+
+                            <td>
+                                Delete
+                            </td>
+
+                            <td>
+                                Edit
+                            </td>
+
+                        </tr>
+
+
+
+                        {withdrawList.map(data => <tr key={data.__id} >
+                            <td >
+                                {data.user.email}
+                            </td>
+
+                            <td >
+                                {data.withdrawId}
+                            </td>
+
+                            <td>
+                                {data.amount}
+                            </td>
+
+                            <td>
+                                {data.bitcoin_address}
+                
+                            </td>
+
+
+                            <td>
+                                {data.zelle_address}
+                            </td>
+
+                            <td>
+                                {data.etherium_address}
+                            </td>
+
+                            <td>
+                                {data.cashapp_address}
+    
+                            </td>
+
+                            <td>
+                                {data.method}
+                            </td>
+                         
+               
+
+                            <td>
+                                {data.swift}
+                            </td>
+
+                            <td>
+                                {data.bank_name}
+                            </td>
+
+                            <td>
+                                {data.account_number}
+                            </td>
+
+                            <td>
+                                {data.account_name}
+                            </td>
+
+                            <td>
+                                {data.phone}
+                            </td>
+
+                            <td>
+                                {data.name}
+                            </td>
+
+
+
+
+
+                            <td onClick={() => deleteHandler(data._id)}>
+                                <span className='material-icons'> delete</span>
+                            </td>
+
+                            <td onClick={() => editHandler(data._id)}>
+                                <span className='material-icons'> edit</span>
+                            </td>
 
 
 
 
 
 
-                    <div className={styles.buttonContainer} >
-                        <button >save</button>
-                    </div>
+                        </tr>)}
+
+
+                    </tbody>
+                </table>}
 
 
 
-                </form>}
+
             </div>
 
 
 
+        </div>
 
 
 
-        </div></>)
+    </div>)
 
 
 

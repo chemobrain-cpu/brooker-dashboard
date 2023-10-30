@@ -22,6 +22,9 @@ const AdminDeposits = React.lazy(() => import('./screen/admin_screen/Dashboard/A
 const AdminEditDeposit = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminEditDeposit'))
 
 
+const AdminWithdraws = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminWithdraws'))
+const AdminEditWithdraw = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminEditWithdraw'))
+
 
 const AdminEditAdmin = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminEditAdmin'))
 
@@ -67,8 +70,8 @@ function App() {
 
 
 
-          <Route path='/admindashboard/withdraws' element={adminToken ? <AdminUsers status={false} /> : <AdminLogin />} />
-          <Route path='/admindashboard/withdraws/:id' element={adminToken ? <AdminEditUser status={true} /> : <AdminLogin />} />
+          <Route path='/admindashboard/withdraws' element={adminToken ? <AdminWithdraws status={false} /> : <AdminLogin />} />
+          <Route path='/admindashboard/withdraw/:id' element={adminToken ? <AdminEditWithdraw status={true} /> : <AdminLogin />} />
 
 
 

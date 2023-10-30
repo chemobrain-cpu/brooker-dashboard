@@ -46,7 +46,6 @@ export const AdminDepositEditComponent = ({ updateHandler, }) => {
         <div className={styles.homeScreen} style={{ backgroundColor: color.background }}>
 
             <div className={styles.timeline} style={{ backgroundColor: color.background }}>
-                <h1 className={styles.timelineHeading}>Edit Client Deposit</h1>
 
                 {depositsList && isData && <form className={styles.editForm} onSubmit={submitHandler}>
 

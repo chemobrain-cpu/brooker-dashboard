@@ -43,7 +43,6 @@ export const AdminEditComponent = ({ updateHandler, }) => {
         <div className={styles.homeScreen} style={{ backgroundColor: color.background }}>
 
             <div className={styles.timeline} style={{ backgroundColor: color.background }}>
-                <h1 className={styles.timelineHeading}>Edit Your Information</h1>
 
                 {admin && isData && <form className={styles.editForm} onSubmit={submitHandler}>
 

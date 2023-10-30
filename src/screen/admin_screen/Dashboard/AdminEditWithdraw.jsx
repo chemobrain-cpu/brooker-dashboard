@@ -3,27 +3,24 @@ import styles from '../../Home.module.css';
 import DashboardHeader from '../../../component/userscreencomp/dashboardNav';
 import DashboardDrawer from '../../../component/userscreencomp/Drawer';
 import Sidebar from '../../../component/adminscreencomp/sidebar';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useNavigate} from 'react-router-dom';
 import LoadingModal from "../../../component/Modal/LoadingModal";
 import { useDispatch } from 'react-redux';
-import { AdminWithdrawsComponent } from '../../../component/adminscreencomp/Home/Deposits';
+import { updateWithdraw } from '../../../store/action/userAppStorage';
 import { Error } from '../../../component/common/Error';
+import { AdminWithrawEditComponent } from '../../../component/adminscreencomp/Home/WithdrawsEdit';
 
 
 
-
-const AdminWithdrawsScreen = ({status}) => {
+const AdminEditWithdraw = ({ status }) => {
     //tradeModal and transfer modal
-    let [isOpenTradeModal, setIsOpenTradeModal] = useState(false)
-    let [isOpenTransferModal, setIsOpenTransferModal] = useState(false)
-    let { color } = useSelector(state => state.userAuth)
+    let [isError, setIsError] = useState(false)
     let [isLoading, setIsLoading] = useState(false)
-    let [isError,setIsError] = useState(false)
-
-
     let dispatch = useDispatch()
     let navigate = useNavigate()
+
+
+
 
     let showmenuHandler = () => {
         let drawer = document.querySelector('.drawerCon')
@@ -32,14 +29,28 @@ const AdminWithdrawsScreen = ({status}) => {
 
 
 
+    let updateHandler = async (data) => {
+        setIsLoading(true)
+        let res = await dispatch(updateWithdraw(data))
 
-    let closeModal = () => {
-        setIsOpenTransferModal(false)
-        setIsOpenTradeModal(false)
+        if (!res.bool) {
+            setIsError(true)
+            setIsLoading(false)
+            return
+        }
+
+        setIsLoading(false)
+        navigate('/admindashboard/withdraws')
+
+
+
+
     }
 
-    if(isError){
-        return <Error/>
+
+
+    if (isError) {
+        return <Error />
     }
 
 
@@ -47,18 +58,18 @@ const AdminWithdrawsScreen = ({status}) => {
         {isLoading && <LoadingModal />}
         <div className={styles.dashboard}>
             <div className={styles.sidebar}>
-                <Sidebar status='Matters' />
+                <Sidebar status='Withdraws' />
             </div>
 
             <div className={styles.main}>
                 {/*mobile and dashboard headers*/}
                 <DashboardDrawer showmenuHandler={showmenuHandler} />
-                <DashboardHeader showmenuHandler={showmenuHandler}  title='Home' />
-                <AdminDepositsComponent status={status}/>
+                <DashboardHeader showmenuHandler={showmenuHandler} title='Home' />
+                <AdminWithrawEditComponent updateHandler={updateHandler} />
             </div>
         </div>
     </>
     )
 }
 
-export default AdminWithdrawsScreen
+export default AdminEditWithdraw

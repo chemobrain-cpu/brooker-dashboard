@@ -15,6 +15,14 @@ export const UPDATE_DEPOSIT = 'UPDATE_DEPOSIT'
 export const DELETE_DEPOSIT = 'DELETE_DEPOSIT'
 
 
+export const FETCH_WITHDRAWS = 'FETCH_WITHDRAW'
+export const FETCH_WITHDRAW= 'FETCH_WITHDRAW'
+export const UPDATE_WITHDRAW = 'UPDATE_WITHDRAW'
+export const DELETE_WITHDRAW = 'DELETE_WITHDRAW'
+
+
+
+
 export const UPDATE_ADMIN = 'UPDATE_ADMIN'
 
 //pure functions to calculate the time remaining
@@ -73,12 +81,12 @@ export const checkIfAdminIsLoggedIn = () => {
       if (!admin) {
         return
       }
-    //https://brooker-backendll.onrender.com
+    //https://brooker-backend.onrender.com
     //https://brooker-backendll.onrender.com
     
 
-    //http://localhost:9090
-      response = await fetch(`http://localhost:9090/adminbytoken`, {
+    //https://brooker-backend.onrender.com
+      response = await fetch(`https://brooker-backend.onrender.com/adminbytoken`, {
         method: "GET",
         headers:{
           "Content-Type": "application/json",
@@ -102,7 +110,7 @@ export const loginAdmin = (data) => {
   let dataObj = data
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('http://localhost:9090/adminlogin', {
+      let response = await fetch('https://brooker-backend.onrender.com/adminlogin', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -162,7 +170,7 @@ export const signupAdmin = (data) => {
   let dataObj = data
   return async (dispatch, getState) => {
     try {
-      let response = await fetch(`http://localhost:9090/adminsignup`, {
+      let response = await fetch(`https://brooker-backend.onrender.com/adminsignup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -221,8 +229,8 @@ export const signupAdmin = (data) => {
     }
   }
 }
-//http://localhost:9090
-//http://localhost:9090
+//https://brooker-backend.onrender.com
+//https://brooker-backend.onrender.com
 export const fetchUsers = ()=>{
   return async (dispatch, getState) => {
     let {
@@ -230,7 +238,7 @@ export const fetchUsers = ()=>{
     } = getState().userAuth
 
     try {
-      let response = await fetch(`http://localhost:9090/users`, {
+      let response = await fetch(`https://brooker-backend.onrender.com/users`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -282,7 +290,7 @@ export const deleteUser = (id)=>{
     } = getState().userAuth
 
     try {
-      let response = await fetch(`http://localhost:9090/users/${id}`, {
+      let response = await fetch(`https://brooker-backend.onrender.com/users/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -334,7 +342,7 @@ export const updateUser = (data)=>{
     } = getState().userAuth
 
     try {
-      let response = await fetch(`http://localhost:9090/users/${data._id}`, {
+      let response = await fetch(`https://brooker-backend.onrender.com/users/${data._id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -390,7 +398,7 @@ export const fetchDeposits = ()=>{
     } = getState().userAuth
 
     try {
-      let response = await fetch(`http://localhost:9090/deposits`, {
+      let response = await fetch(`https://brooker-backend.onrender.com/deposits`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -442,7 +450,7 @@ export const deleteDeposit = (id)=>{
     } = getState().userAuth
 
     try {
-      let response = await fetch(`http://localhost:9090/deposits/${id}`, {
+      let response = await fetch(`https://brooker-backend.onrender.com/deposits/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -494,7 +502,7 @@ export const updateDeposit = (data)=>{
     } = getState().userAuth
 
     try {
-      let response = await fetch(`http://localhost:9090/deposits/${data._id}`, {
+      let response = await fetch(`https://brooker-backend.onrender.com/deposits/${data._id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -543,6 +551,165 @@ export const updateDeposit = (data)=>{
 
 
 
+//withdraw methods
+export const fetchWithdraws = ()=>{
+  return async (dispatch, getState) => {
+    let {
+      adminToken
+    } = getState().userAuth
+
+    try {
+      let response = await fetch(`https://brooker-backend.onrender.com/withdraws`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "header": `${adminToken}`
+        }
+      })
+      //an error 
+      if (response.status === 300) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 301) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 200) {
+        let data = await response.json()
+        dispatch({type:FETCH_WITHDRAWS,payload:data.response})
+
+        return {
+          bool: true,
+          message: data.response
+        }
+      }
+    }
+
+    catch (err) {
+      return {
+        bool: false,
+        message: err.message
+      }
+    }
+  }
+
+}
+
+export const deleteWithdraw = (id)=>{
+  return async (dispatch, getState) => {
+    let {
+      adminToken
+    } = getState().userAuth
+
+    try {
+      let response = await fetch(`https://brooker-backend.onrender.com/withdraws/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "header": `${adminToken}`
+        }
+      })
+      //an error 
+      if (response.status === 300) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 301) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 200) {
+        let data = await response.json()
+
+        dispatch({type:DELETE_WITHDRAW,payload:id})
+        return {
+          bool: true,
+          message: data.response
+        }
+      }
+    }
+
+    catch (err) {
+      return {
+        bool: false,
+        message: err.message
+      }
+    }
+  }
+
+}
+
+export const updateWithdraw = (data)=>{
+  return async (dispatch, getState) => {
+    let {
+      adminToken
+    } = getState().userAuth
+
+    try {
+      let response = await fetch(`https://brooker-backend.onrender.com/withdraws/${data._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "header": `${adminToken}`
+        },
+        body:JSON.stringify(data)
+      })
+
+
+      //an error 
+      if (response.status === 300) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 301) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 200) {
+        let data = await response.json()
+        dispatch({type:UPDATE_WITHDRAW,payload:data.response})
+        return {
+          bool: true,
+          message: data.response
+        }
+      }
+    }
+
+    catch (err) {
+      console.log(err)
+      return {
+        bool: false,
+        message: err.message
+      }
+    }
+  }
+}
+
 
 
 
@@ -555,7 +722,7 @@ export const updateAdmin = (data)=>{
     } = getState().userAuth
 
     try {
-      let response = await fetch(`http://localhost:9090/admin/${data._id}`, {
+      let response = await fetch(`https://brooker-backend.onrender.com/admin/${data._id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

@@ -112,7 +112,7 @@ export const AdminUsersComponent = ({ status }) => {
     return (<div className={styles.homeScreen} style={{ backgroundColor: color.background }}>
 
         <div className={styles.timeline} style={{ backgroundColor: color.background }}>
-            <h1>All Users</h1>
+           
 
             <div className={styles.filter}>
 

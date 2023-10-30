@@ -116,8 +116,7 @@ export const AdminDepositsComponent = ({ status }) => {
     return (<div className={styles.homeScreen} style={{ backgroundColor: color.background }}>
 
         <div className={styles.timeline} style={{ backgroundColor: color.background }}>
-            <h1>All Deposit</h1>
-
+        
             <div className={styles.filter}>
 
                 <div className={styles.searchContainer}>
