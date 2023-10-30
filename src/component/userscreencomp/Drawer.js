@@ -13,9 +13,24 @@ let topMenu = [
     link: '/admindashboard/users'
   },
   {
-    icon: 'settings',
-    title: 'setting',
+    icon: 'setting',
+    title: 'settings',
     link: '/admindashboard/admin'
+  },
+  {
+    icon: 'money',
+    title: 'deposits',
+    link: '/admindashboard/deposits'
+  },
+  {
+    icon: 'withdraw',
+    title: 'withdraws',
+    link: '/admindashboard/withdraws'
+  },
+  {
+    icon: 'explore',
+    title: 'trades',
+    link: '/admindashboard/trades'
   }
 ]
 

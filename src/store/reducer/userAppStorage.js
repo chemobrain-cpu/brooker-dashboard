@@ -1,4 +1,8 @@
-import { LOG_ADMIN_IN, LOGIN_ADMIN, FETCH_USERS, FETCH_USER, UPDATE_USER, DELETE_USER,UPDATE_ADMIN } from "../action/userAppStorage";
+import {
+    LOG_ADMIN_IN, LOGIN_ADMIN, FETCH_USERS, FETCH_USER, UPDATE_USER, DELETE_USER,
+    FETCH_DEPOSITS, FETCH_DEPOSIT, UPDATE_DEPOSIT, DELETE_DEPOSIT,
+    UPDATE_ADMIN
+} from "../action/userAppStorage";
 
 
 const initialState = {
@@ -13,7 +17,8 @@ const initialState = {
         blue: '',
         fadeButtonColor: '',
     },
-    usersList: []
+    usersList: [],
+    depositsList: [],
 }
 
 
@@ -79,12 +84,56 @@ export const userAuthReducer = (state = initialState, action) => {
                 }
             }
 
+
+
+
+        case FETCH_DEPOSITS:
+            return {
+                ...state,
+                depositsList: action.payload
+            }
+
+        case FETCH_DEPOSIT:
+            return {
+                ...state,
+                depositsList: action.payload
+            }
+
+        case UPDATE_DEPOSIT:
+            if (true) {
+                let updatedDeposit = action.payload
+
+                let newDepositList = []
+                for (let data of state.depositsList) {
+                    if (data._id.toString() === updatedDeposit._id.toString()) {
+                        newDepositList.push(updatedDeposit)
+                    } else {
+                        newDepositList.push(data)
+                    }
+                }
+
+                return {
+                    ...state,
+                    depositsList: newDepositList
+                }
+            }
+
+        case DELETE_DEPOSIT:
+            if (true) {
+                let depositId = action.payload
+                let newDeposit = state.depositsList.filter(data => data._id !== depositId)
+                return {
+                    ...state,
+                    depositsList: newDeposit
+                }
+            }
+
         case UPDATE_ADMIN:
             if (true) {
                 let updatedAdmin = action.payload
                 return {
                     ...state,
-                    admin:updatedAdmin
+                    admin: updatedAdmin
                 }
             }
 

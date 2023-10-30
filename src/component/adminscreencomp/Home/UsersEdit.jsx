@@ -102,42 +102,6 @@ export const AdminUserEditComponent  = ({ updateHandler,}) => {
                         <input onChange={(e)=>handleChangeHandler(e,'password')} value={isData.password} type='text'/>
                     </div>
 
-                    {isData.proofUrl?<div className={styles.inputCards}>
-                        <label>
-                        payment proof photo
-                        </label>
-                        <img src={isData.proofUrl} />
-                        
-                    </div>:''}
-
-                    {isData.passportUrl?<div className={styles.inputCards}>
-                        <label>
-                        passport image
-                        </label>
-                        <img src={isData.passportUrl} />
-                        
-                    </div>:''}
-
-                    {isData.idCardUrl?<div className={styles.inputCards}>
-                        <label>
-                        id card
-                        </label>
-                        <img src={isData.idCardUrl} />
-                        
-                    </div>:''}
-
-                    
-                    <div className={styles.inputCards}>
-                        <label>
-                            Trade Progress
-                        </label>
-
-                        <input onChange={(e)=>handleChangeHandler(e,'tradeProgress')} value={isData.tradeProgress} type='Number'/>
-                    </div>
-
-
-                
-
                     <div className={styles.inputCards}>
                         <label>
                             Current Plan
@@ -154,13 +118,9 @@ export const AdminUserEditComponent  = ({ updateHandler,}) => {
                         <input onChange={(e)=>handleChangeHandler(e,'availableBalance')} value={isData.availableBalance} type='number'/>
                     </div>
 
-                    <div className={styles.inputCards}>
-                        <label>
-                            Profit
-                        </label>
+            
 
-                        <input onChange={(e)=>handleChangeHandler(e,'profit')} value={isData.profit} type='number'/>
-                    </div>
+
                     <div className={styles.inputCards}>
                         <label>
                             Deposited

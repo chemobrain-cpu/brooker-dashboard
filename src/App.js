@@ -15,6 +15,14 @@ const AdminSignup = React.lazy(() => import('./screen/admin_screen/Auth/Signup')
 
 const AdminUsers = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminUsers'))
 const AdminEditUser = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminEditUser'))
+
+
+
+const AdminDeposits = React.lazy(() => import('./screen/admin_screen/Dashboard/AminDeposits'))
+const AdminEditDeposit = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminEditDeposit'))
+
+
+
 const AdminEditAdmin = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminEditAdmin'))
 
 
@@ -45,6 +53,35 @@ function App() {
           <Route path='/admindashboard/users' element={adminToken ? <AdminUsers status={false} /> : <AdminLogin />} />
 
           <Route path='/admindashboard/users/:id' element={adminToken ? <AdminEditUser status={true} /> : <AdminLogin />} />
+
+
+
+
+
+
+          <Route path='/admindashboard/deposits' element={adminToken ? <AdminDeposits status={false} /> : <AdminLogin />} />
+          <Route path='/admindashboard/deposits/:id' element={adminToken ? <AdminEditDeposit status={true} /> : <AdminLogin />} />
+
+
+
+
+
+
+          <Route path='/admindashboard/withdraws' element={adminToken ? <AdminUsers status={false} /> : <AdminLogin />} />
+          <Route path='/admindashboard/withdraws/:id' element={adminToken ? <AdminEditUser status={true} /> : <AdminLogin />} />
+
+
+
+
+          <Route path='/admindashboard/trades' element={adminToken ? <AdminUsers status={false} /> : <AdminLogin />} />
+          <Route path='/admindashboard/trades/:id' element={adminToken ? <AdminEditUser status={true} /> : <AdminLogin />} />
+
+
+
+
+
+
+
 
 
           <Route path='/admindashboard/admin' element={adminToken ? <AdminEditAdmin status={true} /> : <AdminLogin />} />

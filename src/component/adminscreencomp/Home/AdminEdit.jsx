@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 export const AdminEditComponent = ({ updateHandler, }) => {
 
     let [isData, setIsData] = useState(null)
-    let { color,admin } = useSelector(state => state.userAuth)
+    let { color, admin } = useSelector(state => state.userAuth)
 
     let { id } = useParams()
 
@@ -24,7 +24,7 @@ export const AdminEditComponent = ({ updateHandler, }) => {
 
     }
 
-    
+
     useEffect(() => {
         setIsData(admin)
     }, [id])
@@ -38,7 +38,7 @@ export const AdminEditComponent = ({ updateHandler, }) => {
 
     }
 
-
+   
     return (<>
         <div className={styles.homeScreen} style={{ backgroundColor: color.background }}>
 
@@ -47,7 +47,7 @@ export const AdminEditComponent = ({ updateHandler, }) => {
 
                 {admin && isData && <form className={styles.editForm} onSubmit={submitHandler}>
 
-              
+
                     <div className={styles.inputCards}>
                         <label>
                             Email
@@ -55,7 +55,7 @@ export const AdminEditComponent = ({ updateHandler, }) => {
                         <input onChange={(e) => handleChangeHandler(e, 'email')} value={isData.email} type='text' required />
                     </div>
 
-                    
+
                     <div className={styles.inputCards}>
                         <label>
                             Password
@@ -65,31 +65,68 @@ export const AdminEditComponent = ({ updateHandler, }) => {
 
                     <div className={styles.inputCards}>
                         <label>
-                            Wallet Address
+                            Bitcoin Wallet Address
                         </label>
-                        <input onChange={(e) => handleChangeHandler(e, 'walletAddress')} value={isData.walletAddress} type='text' required />
+                        <input onChange={(e) => handleChangeHandler(e, 'bitcoinwalletaddress')} value={isData.bitcoinwalletaddress} type='text' required />
+                    </div>
+
+
+                    <div className={styles.inputCards}>
+                        <label>
+                            Zelle Wallet Address
+                        </label>
+                        <input onChange={(e) => handleChangeHandler(e, 'zellewalletaddress')} value={isData.zellewalletaddress} type='text' required />
+                    </div>
+
+                    <div className={styles.inputCards}>
+                        <label>
+                            Etherium Wallet Address
+                        </label>
+                        <input onChange={(e) => handleChangeHandler(e, 'etheriumwalletaddress')} value={isData.etheriumwalletaddress} type='text' required />
                     </div>
                     
                     <div className={styles.inputCards}>
                         <label>
-                            Phone
+                        cash App
+                        </label>
+                        <input onChange={(e) => handleChangeHandler(e, 'cashappwalletaddress')} value={isData.cashappwalletaddress} type='text' required />
+                    </div>
+
+                    <div className={styles.inputCards}>
+                        <label>
+                            Gcash Name
+                        </label>
+                        <input onChange={(e) => handleChangeHandler(e, 'gcashname')} value={isData.gcashname} type='text' required />
+                    </div>
+
+                    <div className={styles.inputCards}>
+                        <label>
+                            Gcash Phone Number
+                        </label>
+                        <input onChange={(e) => handleChangeHandler(e, 'gcashphonenumber')} value={isData.gcashphonenumber} type='text' required />
+                    </div>
+
+
+
+
+
+
+
+
+                    <div className={styles.inputCards}>
+                        <label>
+                            Admin Phone Number
                         </label>
                         <input onChange={(e) => handleChangeHandler(e, 'phoneNumber')} value={isData.phoneNumber} type='text' required />
                     </div>
 
-                    
+
                     <div className={styles.inputCards}>
                         <label>
-                            Name
+                            Admin Name
                         </label>
                         <input onChange={(e) => handleChangeHandler(e, 'name')} value={isData.name} type='text' required />
                     </div>
-
-
-
-                    
-
-                
 
 
                     <div className={styles.buttonContainer} >
