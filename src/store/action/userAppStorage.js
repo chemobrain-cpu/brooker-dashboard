@@ -20,6 +20,11 @@ export const FETCH_WITHDRAW= 'FETCH_WITHDRAW'
 export const UPDATE_WITHDRAW = 'UPDATE_WITHDRAW'
 export const DELETE_WITHDRAW = 'DELETE_WITHDRAW'
 
+export const FETCH_TRADES = 'FETCH_TRADES'
+export const FETCH_TRADE = 'FETCH_TRADE'
+export const UPDATE_TRADE = 'UPDATE_TRADE'
+export const DELETE_TRADE = 'DELETE_TRADE'
+export const CREATE_TRADE = 'CREATE_TRADE'
 
 
 
@@ -81,9 +86,9 @@ export const checkIfAdminIsLoggedIn = () => {
       if (!admin) {
         return
       }
-    //https://brooker-backend.onrender.com
+    //http://localhostll:9090
     //https://brooker-backendll.onrender.com
-    
+    //https://brooker-backend.onrender.com
 
     //https://brooker-backend.onrender.com
       response = await fetch(`https://brooker-backend.onrender.com/adminbytoken`, {
@@ -603,7 +608,6 @@ export const fetchWithdraws = ()=>{
   }
 
 }
-
 export const deleteWithdraw = (id)=>{
   return async (dispatch, getState) => {
     let {
@@ -655,7 +659,6 @@ export const deleteWithdraw = (id)=>{
   }
 
 }
-
 export const updateWithdraw = (data)=>{
   return async (dispatch, getState) => {
     let {
@@ -709,6 +712,224 @@ export const updateWithdraw = (data)=>{
     }
   }
 }
+
+
+
+
+
+
+
+//withdraw methods
+export const fetchTrades = ()=>{
+  return async (dispatch, getState) => {
+    let {
+      adminToken
+    } = getState().userAuth
+
+    try {
+      let response = await fetch(`https://brooker-backend.onrender.com/trades`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "header": `${adminToken}`
+        }
+      })
+      //an error 
+      if (response.status === 300) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 301) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 200) {
+        let data = await response.json()
+        dispatch({type:FETCH_TRADES,payload:data.response})
+
+        return {
+          bool: true,
+          message: data.response
+        }
+      }
+    }
+
+    catch (err) {
+      return {
+        bool: false,
+        message: err.message
+      }
+    }
+  }
+
+}
+export const deleteTrade = (id)=>{
+  return async (dispatch, getState) => {
+    let {
+      adminToken
+    } = getState().userAuth
+
+    try {
+      let response = await fetch(`https://brooker-backend.onrender.com/trades/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "header": `${adminToken}`
+        }
+      })
+      //an error 
+      if (response.status === 300) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 301) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 200) {
+        let data = await response.json()
+
+        dispatch({type:DELETE_TRADE,payload:id})
+        return {
+          bool: true,
+          message: data.response
+        }
+      }
+    }
+
+    catch (err) {
+      return {
+        bool: false,
+        message: err.message
+      }
+    }
+  }
+
+}
+export const updateTrade = (data)=>{
+  return async (dispatch, getState) => {
+    let {
+      adminToken
+    } = getState().userAuth
+
+    try {
+      let response = await fetch(`https://brooker-backend.onrender.com/trades/${data._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "header": `${adminToken}`
+        },
+        body:JSON.stringify(data)
+      })
+
+
+      //an error 
+      if (response.status === 300) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 301) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 200) {
+        let data = await response.json()
+        dispatch({type:UPDATE_TRADE,payload:data.response})
+        return {
+          bool: true,
+          message: data.response
+        }
+      }
+    }
+
+    catch (err) {
+      console.log(err)
+      return {
+        bool: false,
+        message: err.message
+      }
+    }
+  }
+}
+export const createTrade = (data)=>{
+  alert('called')
+  return async (dispatch, getState) => {
+    let {
+      adminToken
+    } = getState().userAuth
+
+    try {
+      let response = await fetch(`https://brooker-backend.onrender.com/trades`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "header": `${adminToken}`
+        },
+        body:JSON.stringify(data)
+      })
+
+
+      //an error 
+      if (response.status === 300) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 301) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 200) {
+        let data = await response.json()
+        dispatch({type:CREATE_TRADE,payload:data.response})
+        return {
+          bool: true,
+          message: data.response
+        }
+      }
+    }
+
+    catch (err) {
+      console.log(err)
+      return {
+        bool: false,
+        message: err.message
+      }
+    }
+  }
+}
+
 
 
 

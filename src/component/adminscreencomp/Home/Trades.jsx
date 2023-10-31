@@ -1,42 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../common/Home.module.css';
 import { useDispatch } from "react-redux";
-import {deleteUser, fetchUsers } from "../../../store/action/userAppStorage";
+import { deleteTrade, fetchTrades } from "../../../store/action/userAppStorage";
 import { Loader } from '../../common/HomeLoader';
 import { useNavigate } from 'react-router-dom';
 import { Error } from "../../common/Error";
 import { useSelector } from "react-redux";
 
-export const AdminUsersComponent = ({ status }) => {
 
+
+export const AdminTradesComponent = ({ status }) => {
     let [isLoading, setIsLoading] = useState(true)
     let [isError, setIsError] = useState(false)
-    let [userList, setUserList] = useState([])
-    let [filteredUsers, setfilteredUsers] = useState([])
+    let [tradeList, setTradeList] = useState([])
+    let [filteredTrades, setfilteredTrades] = useState([])
 
     //initialising reduzx
     let dispatch = useDispatch()
     let navigate = useNavigate()
 
-    let { color, user } = useSelector(state => state.userAuth)
-
-    let interval
-
+    let { color } = useSelector(state => state.userAuth)
 
 
 
     useEffect(() => {
-        fetchAllUsers()
+        fetchAllTrades()
     }, [])
 
-
-
-
-    let fetchAllUsers = async () => {
+    let fetchAllTrades = async () => {
         setIsError(false)
-        let res = await dispatch(fetchUsers())
-
-        console.log(res)
+        let res = await dispatch(fetchTrades())
 
         if (!res.bool) {
             setIsError(true)
@@ -45,23 +38,21 @@ export const AdminUsersComponent = ({ status }) => {
         }
         //do some filtering here
 
-        setUserList(res.message)
-        setfilteredUsers(res.message)
+        setTradeList(res.message)
+        setfilteredTrades(res.message)
         setIsLoading(false)
     }
 
-
-
     let editHandler = (id) => {
         //navigate to the next page
-        navigate(`/admindashboard/users/${id}`)
+        navigate(`/admindashboard/traders/${id}`)
     }
 
 
     let deleteHandler = async (id) => {
         //delete this specific case from server
         setIsError(false)
-        let res = await dispatch(deleteUser(id))
+        let res = await dispatch(deleteTrade(id))
         if (!res.bool) {
             setIsError(true)
             setIsLoading(false)
@@ -70,30 +61,34 @@ export const AdminUsersComponent = ({ status }) => {
 
         //filtering the already list
 
-        let filteredArray = userList.filter(data => data._id !== id)
+        let filteredArray = tradeList.filter(data => data._id !== id)
 
-        setUserList(filteredArray)
-        setfilteredUsers(filteredArray)
+        setTradeList(filteredArray)
+        setfilteredTrades(filteredArray)
         setIsLoading(false)
 
     }
 
+    let navigateHandler = ()=>{
+        navigate('/admindashboard/trade')
 
+
+    }
 
 
 
     let searchHandler = (e) => {
         setIsLoading(true)
         if (e) {
-            const newData = filteredUsers.filter((item) => {
+            const newData = filteredTrades.filter((item) => {
                 const itemData = item.email ? item.email : '';
                 const textData = e.target.value.toUpperCase();
                 return itemData.indexOf(textData) > -1;
             })
-            setUserList(newData)
+            setTradeList(newData)
             setIsLoading(false)
         } else {
-            setUserList(filteredUsers)
+            setTradeList(filteredTrades)
             setIsLoading(false)
 
         }
@@ -113,7 +108,7 @@ export const AdminUsersComponent = ({ status }) => {
 
         <div className={styles.timeline} style={{ backgroundColor: color.background }}>
 
-            <div className={styles.filter}>
+            {tradeList.length != 0 && <div className={styles.filter}>
 
                 <div className={styles.searchContainer}>
                     <div className={styles.searchBar}>
@@ -130,86 +125,86 @@ export const AdminUsersComponent = ({ status }) => {
                 </div>
 
 
-            </div>
+            </div>}
 
             <div className={styles.tableContainer} >
 
-                {userList.length === 0 && <div className={styles.emptyContainer}>
-                    <p>No registered users</p>
-
+                {tradeList.length === 0 && <div className={styles.emptyContainer}>
+                    <p>zero trades made</p>
+                    <button style={{color:'blue'}} onClick={navigateHandler}>trade for a client</button>
                 </div>}
 
-    
 
-                {userList.length !== 0 && <table>
+
+
+
+                {tradeList.length !== 0 && <table>
                     <tbody>
                         <tr>
                             <td>
-                                Email
+                                Email Of Trader
                             </td>
                             <td>
-                                Full Name
-
+                                TradeID
                             </td>
-
                             <td>
-                                Phone Number
+                                Date
 
                             </td>
 
                             <td>
-                                Gender
+                                Pair
 
                             </td>
 
                             <td>
-                                Country
+                                Profit
 
                             </td>
 
                             <td>
-                                Currency
+                                Loss
+
+                            </td>
+                            <td >
+                                delete
                             </td>
 
-                    
-                            <td>
-                                Delete
+                            <td> edit
                             </td>
 
-                            <td>
-                                Edit
-                            </td>
+
+
+
+
 
                         </tr>
 
 
-                        {userList.map(data => <tr key={data.__id} >
+                        {tradeList.map(data => <tr key={data.__id} >
                             <td >
-                                {data.email}
+                                {data.user.email}
+                            </td>
+
+                            <td >
+                                {data.tradeId}
                             </td>
 
                             <td>
-                                {data.fullName}
+                                {data.date}
                             </td>
 
                             <td>
-                                {data.phoneNumber}
-                            </td>
-
-
-                            <td>
-                                {data.gender}
+                                {data.pair}
                             </td>
 
                             <td>
-                                {data.country}
+                                {data.profit}
                             </td>
 
                             <td>
-                                {data.currency}
+                                {data.loss}
                             </td>
-
-
 
                             <td onClick={() => deleteHandler(data._id)}>
                                 <span className='material-icons'> delete</span>

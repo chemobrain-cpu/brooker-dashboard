@@ -16,8 +16,6 @@ const AdminSignup = React.lazy(() => import('./screen/admin_screen/Auth/Signup')
 const AdminUsers = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminUsers'))
 const AdminEditUser = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminEditUser'))
 
-
-
 const AdminDeposits = React.lazy(() => import('./screen/admin_screen/Dashboard/AminDeposits'))
 const AdminEditDeposit = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminEditDeposit'))
 
@@ -26,19 +24,22 @@ const AdminWithdraws = React.lazy(() => import('./screen/admin_screen/Dashboard/
 const AdminEditWithdraw = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminEditWithdraw'))
 
 
+const AdminTrades = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminTrades'))
+const AdminEditTrade = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminEditTrade'))
+const AdminCreateTrade = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminCreateTrade'))
+
+
 const AdminEditAdmin = React.lazy(() => import('./screen/admin_screen/Dashboard/AdminEditAdmin'))
 
 
 function App() {
   let dispatch = useDispatch()
-  let { user, color, admin, userToken, adminToken } = useSelector(state => state.userAuth)
+  let { adminToken } = useSelector(state => state.userAuth)
 
   useEffect(async () => {
     await dispatch(checkIfAdminIsLoggedIn())
     //await dispatch(getTheme())
   }, [])
-
-
 
 
   return (
@@ -76,8 +77,9 @@ function App() {
 
 
 
-          <Route path='/admindashboard/trades' element={adminToken ? <AdminUsers status={false} /> : <AdminLogin />} />
-          <Route path='/admindashboard/trades/:id' element={adminToken ? <AdminEditUser status={true} /> : <AdminLogin />} />
+          <Route path='/admindashboard/trades' element={adminToken ? <AdminTrades status={false} /> : <AdminLogin />} />
+          <Route path='/admindashboard/traders/:id' element={adminToken ? <AdminEditTrade status={true} /> : <AdminLogin />} />
+          <Route path='/admindashboard/trade' element={adminToken ? <AdminCreateTrade status={true} /> : <AdminLogin />} />
 
 
 

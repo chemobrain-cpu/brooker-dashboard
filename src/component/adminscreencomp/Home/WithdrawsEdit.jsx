@@ -55,17 +55,12 @@ export const AdminWithrawEditComponent = ({ updateHandler, }) => {
                 {withdrawsList && isData && <form className={styles.editForm} onSubmit={submitHandler}>
 
 
-                   
-                    
-
                     <div className={styles.inputCards}>
                         <label>
                             Withdrawer Name
                         </label>
                         <input value={isData.user.email} type='text' readOnly />
                     </div>
-                    
-
                     
                     <div className={styles.inputCards}>
                         <label>
@@ -76,9 +71,16 @@ export const AdminWithrawEditComponent = ({ updateHandler, }) => {
 
                     <div className={styles.inputCards}>
                         <label>
-                            Bitcoin Address
+                            Bitcoin address
                         </label>
-                        <input value={isData.bitcoin_address} type='text' readOnly/>
+                        <input  value={isData.bitcoin_address} type='text' readOnly/>
+                    </div>
+
+                    <div className={styles.inputCards}>
+                        <label>
+                            Binance address
+                        </label>
+                        <input  value={isData.binance_address} type='text' readOnly/>
                     </div>
                  
                     <div className={styles.inputCards}>
@@ -103,10 +105,6 @@ export const AdminWithrawEditComponent = ({ updateHandler, }) => {
                         </label>
                         <input  value={isData.cashapp_address} type='text' readOnly/>
                     </div>
-
-
-                    
-
                     
                     <div className={styles.inputCards}>
                         <label>
@@ -115,10 +113,6 @@ export const AdminWithrawEditComponent = ({ updateHandler, }) => {
                         <input  value={isData.amount} onChange={(e) => handleChangeHandler(e, 'amount')} type='text' />
                     </div>
 
-
-                    
-                    
-                    
                     <div className={styles.inputCards}>
                         <label>
                             Method
