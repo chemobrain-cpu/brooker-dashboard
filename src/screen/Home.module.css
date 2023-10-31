@@ -19,7 +19,25 @@
     overflow-x:scroll
 }
 
+.floating_button{
+    position: absolute;
+    z-index: 3000;
+    bottom:30px;
+    background-color: var(--color-blue);
+    right:30px;
+    width:70px;
+    height:70px;
+    border-radius: 70px;
+    color:var(--color-background);
+    display:flex;
+    align-items: center;
+    justify-content: center;
 
+}
+
+.floating_button span{
+    font-size: 30px;
+}
 @media screen and (max-width: 1200px) {
     .dashboard .homeScreen .timeline {
         width: 60%;

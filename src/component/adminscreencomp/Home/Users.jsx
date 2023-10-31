@@ -87,7 +87,7 @@ export const AdminUsersComponent = ({ status }) => {
         if (e) {
             const newData = filteredUsers.filter((item) => {
                 const itemData = item.email ? item.email : '';
-                const textData = e.target.value.toUpperCase();
+                const textData = e.target.value.toLowerCase();
                 return itemData.indexOf(textData) > -1;
             })
             setUserList(newData)
@@ -118,7 +118,7 @@ export const AdminUsersComponent = ({ status }) => {
 
                 <div className={styles.searchContainer}>
                     <div className={styles.searchBar}>
-                        < input className={styles.input} placeholder='search' onChange={searchHandler} />
+                        < input className={styles.input} placeholder='search by email' onChange={searchHandler} />
                         <span className='material-icons'>
                             search
                         </span>

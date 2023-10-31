@@ -66,7 +66,10 @@ const AdminCreateTrade = ({ status }) => {
                 <DashboardDrawer showmenuHandler={showmenuHandler} />
                 <DashboardHeader showmenuHandler={showmenuHandler} title='Home' />
                 <AdminTradeCreateComponent updateHandler={updateHandler} />
+
+                
             </div>
+            
         </div>
     </>
     )

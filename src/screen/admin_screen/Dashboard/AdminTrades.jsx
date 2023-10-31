@@ -6,14 +6,18 @@ import Sidebar from '../../../component/adminscreencomp/sidebar';
 import LoadingModal from "../../../component/Modal/LoadingModal";
 import { AdminTradesComponent } from '../../../component/adminscreencomp/Home/Trades';
 import { Error } from '../../../component/common/Error';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const AdminTradesScreen = ({status}) => {
     //tradeModal and transfer modal
     let [isLoading, setIsLoading] = useState(false)
     let [isError,setIsError] = useState(false)
-
+    let navigate = useNavigate()
+    
+    let handleNavigation = ()=>{
+        navigate('/admindashboard/trade')
+    }
 
    
 
@@ -41,6 +45,7 @@ const AdminTradesScreen = ({status}) => {
                 <DashboardHeader showmenuHandler={showmenuHandler}  title='Trades' />
                 <AdminTradesComponent status={status}/>
             </div>
+            <div className={styles.floating_button} onClick={handleNavigation}><span class='material-icons'>add</span></div>
         </div>
     </>
     )

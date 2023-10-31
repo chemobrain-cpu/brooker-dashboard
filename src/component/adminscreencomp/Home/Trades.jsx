@@ -81,8 +81,8 @@ export const AdminTradesComponent = ({ status }) => {
         setIsLoading(true)
         if (e) {
             const newData = filteredTrades.filter((item) => {
-                const itemData = item.email ? item.email : '';
-                const textData = e.target.value.toUpperCase();
+                const itemData = item.user.email ? item.user.email : '';
+                const textData = e.target.value.toLowerCase();
                 return itemData.indexOf(textData) > -1;
             })
             setTradeList(newData)
@@ -112,7 +112,7 @@ export const AdminTradesComponent = ({ status }) => {
 
                 <div className={styles.searchContainer}>
                     <div className={styles.searchBar}>
-                        < input className={styles.input} placeholder='search' onChange={searchHandler} />
+                        < input className={styles.input} placeholder='search by email' onChange={searchHandler} />
                         <span className='material-icons'>
                             search
                         </span>
@@ -130,7 +130,7 @@ export const AdminTradesComponent = ({ status }) => {
             <div className={styles.tableContainer} >
 
                 {tradeList.length === 0 && <div className={styles.emptyContainer}>
-                    <p>zero trades made</p>
+                    <p>zero trades has made</p>
                     <button style={{color:'blue'}} onClick={navigateHandler}>trade for a client</button>
                 </div>}
 

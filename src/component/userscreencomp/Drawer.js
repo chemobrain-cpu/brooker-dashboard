@@ -13,7 +13,7 @@ let topMenu = [
     link: '/admindashboard/users'
   },
   {
-    icon: 'setting',
+    icon: 'settings',
     title: 'settings',
     link: '/admindashboard/admin'
   },

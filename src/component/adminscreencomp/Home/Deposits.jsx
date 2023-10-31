@@ -121,7 +121,7 @@ export const AdminDepositsComponent = ({ status }) => {
 
                 <div className={styles.searchContainer}>
                     <div className={styles.searchBar}>
-                        < input className={styles.input} placeholder='search' onChange={searchHandler} />
+                        < input className={styles.input} placeholder='search by email' onChange={searchHandler} />
                         <span className='material-icons'>
                             search
                         </span>

@@ -88,9 +88,8 @@ export const checkIfAdminIsLoggedIn = () => {
       }
     //http://localhostll:9090
     //https://brooker-backendll.onrender.com
-    //https://brooker-backend.onrender.com
 
-    //https://brooker-backend.onrender.com
+    
       response = await fetch(`https://brooker-backend.onrender.com/adminbytoken`, {
         method: "GET",
         headers:{
@@ -876,7 +875,6 @@ export const updateTrade = (data)=>{
   }
 }
 export const createTrade = (data)=>{
-  alert('called')
   return async (dispatch, getState) => {
     let {
       adminToken
