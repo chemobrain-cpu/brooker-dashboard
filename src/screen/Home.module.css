@@ -22,7 +22,7 @@
 .floating_button{
     position: absolute;
     z-index: 3000;
-    bottom:30px;
+    bottom:70px;
     background-color: var(--color-blue);
     right:30px;
     width:70px;
