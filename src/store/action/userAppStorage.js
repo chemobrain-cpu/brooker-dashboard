@@ -92,6 +92,9 @@ export const checkIfAdminIsLoggedIn = () => {
 
     //https://brooker-backend.onrender.com
 
+    //https://brooker-backend.onrenderll.com
+    //https://brooker-backend.onrender.com
+
   //https://brooker-backend.onrender.com
       response = await fetch(`https://brooker-backend.onrender.com/adminbytoken`, {
         method: "GET",
@@ -100,13 +103,12 @@ export const checkIfAdminIsLoggedIn = () => {
           "header": `${adminToken}`
         }
       })
-
+      
       if (response.status == 200) {
         let data = await response.json()
         data.response.token = adminToken
         dispatch({ type: LOG_ADMIN_IN, payload: data.response })
       }
-
     } catch (err) {
 
     }

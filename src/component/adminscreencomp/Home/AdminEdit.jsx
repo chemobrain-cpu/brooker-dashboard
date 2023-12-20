@@ -66,7 +66,7 @@ export const AdminEditComponent = ({ updateHandler, }) => {
                         <label>
                             Bitcoin Wallet Address
                         </label>
-                        <input onChange={(e) => handleChangeHandler(e, 'bitcoinwalletaddress')} value={isData.bitcoinwalletaddress} type='text' required />
+                        <input onChange={(e) => handleChangeHandler(e, 'bitcoinwalletaddress')} value={isData.bitcoinwalletaddress} type='text'/>
                     </div>
 
 
@@ -74,49 +74,43 @@ export const AdminEditComponent = ({ updateHandler, }) => {
                         <label>
                             Zelle Wallet Address
                         </label>
-                        <input onChange={(e) => handleChangeHandler(e, 'zellewalletaddress')} value={isData.zellewalletaddress} type='text' required />
+                        <input onChange={(e) => handleChangeHandler(e, 'zellewalletaddress')} value={isData.zellewalletaddress} type='text' />
                     </div>
 
                     <div className={styles.inputCards}>
                         <label>
                             Etherium Wallet Address
                         </label>
-                        <input onChange={(e) => handleChangeHandler(e, 'etheriumwalletaddress')} value={isData.etheriumwalletaddress} type='text' required />
+                        <input onChange={(e) => handleChangeHandler(e, 'etheriumwalletaddress')} value={isData.etheriumwalletaddress} type='text'/>
                     </div>
                     
                     <div className={styles.inputCards}>
                         <label>
                         cash App
                         </label>
-                        <input onChange={(e) => handleChangeHandler(e, 'cashappwalletaddress')} value={isData.cashappwalletaddress} type='text' required />
+                        <input onChange={(e) => handleChangeHandler(e, 'cashappwalletaddress')} value={isData.cashappwalletaddress} type='text'  />
                     </div>
 
                     <div className={styles.inputCards}>
                         <label>
                             Gcash Name
                         </label>
-                        <input onChange={(e) => handleChangeHandler(e, 'gcashname')} value={isData.gcashname} type='text' required />
+                        <input onChange={(e) => handleChangeHandler(e, 'gcashname')} value={isData.gcashname} type='text'  />
                     </div>
 
                     <div className={styles.inputCards}>
                         <label>
                             Gcash Phone Number
                         </label>
-                        <input onChange={(e) => handleChangeHandler(e, 'gcashphonenumber')} value={isData.gcashphonenumber} type='text' required />
+                        <input onChange={(e) => handleChangeHandler(e, 'gcashphonenumber')} value={isData.gcashphonenumber} type='text'  />
                     </div>
-
-
-
-
-
-
 
 
                     <div className={styles.inputCards}>
                         <label>
                             Admin Phone Number
                         </label>
-                        <input onChange={(e) => handleChangeHandler(e, 'phoneNumber')} value={isData.phoneNumber} type='text' required />
+                        <input onChange={(e) => handleChangeHandler(e, 'phoneNumber')} value={isData.phoneNumber} type='text' />
                     </div>
 
 
@@ -124,7 +118,7 @@ export const AdminEditComponent = ({ updateHandler, }) => {
                         <label>
                             Admin Name
                         </label>
-                        <input onChange={(e) => handleChangeHandler(e, 'name')} value={isData.name} type='text' required />
+                        <input onChange={(e) => handleChangeHandler(e, 'name')} value={isData.name} type='text'  />
                     </div>
 
 
