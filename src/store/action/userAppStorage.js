@@ -3,35 +3,26 @@ export const LOGIN_ADMIN = "LOGIN_ADMIN";
 export const LOG_ADMIN_IN = 'LOG_ADMIN_IN'
 export const LOGOUT = 'LOGOUT'
 export const GET_THEME = 'GET_THEME'
-
 export const FETCH_USERS = 'FETCH_USERS'
 export const FETCH_USER = 'FETCH_USER'
 export const UPDATE_USER = 'UPDATE_USER'
 export const DELETE_USER = 'DELETE_USER'
-
 export const FETCH_DEPOSITS = 'FETCH_DEPOSITS'
 export const FETCH_DEPOSIT= 'FETCH_DEPOSIT'
 export const UPDATE_DEPOSIT = 'UPDATE_DEPOSIT'
 export const DELETE_DEPOSIT = 'DELETE_DEPOSIT'
-
-
 export const FETCH_WITHDRAWS = 'FETCH_WITHDRAW'
 export const FETCH_WITHDRAW= 'FETCH_WITHDRAW'
 export const UPDATE_WITHDRAW = 'UPDATE_WITHDRAW'
 export const DELETE_WITHDRAW = 'DELETE_WITHDRAW'
-
 export const FETCH_TRADES = 'FETCH_TRADES'
 export const FETCH_TRADE = 'FETCH_TRADE'
 export const UPDATE_TRADE = 'UPDATE_TRADE'
 export const DELETE_TRADE = 'DELETE_TRADE'
 export const CREATE_TRADE = 'CREATE_TRADE'
-
-
-
 export const UPDATE_ADMIN = 'UPDATE_ADMIN'
 
 //pure functions to calculate the time remaining
-
 let calculateRemainingTime = (expiryDate) => {
   //getting current time in milliseconds
   const currentTime = new Date().getMilliseconds()
@@ -77,7 +68,6 @@ export const checkIfAdminIsLoggedIn = () => {
       }
       //convert expiresIN backt to hours
       adminExpiresIn = adminExpiresIn / (60 * 60 * 1000)
-
       localStorage.setItem('admin_token', adminToken)
       localStorage.setItem('admin_expiry', adminExpiresIn)
 
@@ -86,16 +76,13 @@ export const checkIfAdminIsLoggedIn = () => {
       if (!admin) {
         return
       }
-    //http://localhostll:9090
+ 
     //https://brooker-backendll.onrender.com
-//https://brooker-backend.onrender.com
 
     //https://brooker-backend.onrender.com
-
-    //https://brooker-backend.onrenderll.com
     //https://brooker-backend.onrender.com
 
-  //https://brooker-backend.onrender.com
+
       response = await fetch(`https://brooker-backend.onrender.com/adminbytoken`, {
         method: "GET",
         headers:{
@@ -118,6 +105,7 @@ export const checkIfAdminIsLoggedIn = () => {
 export const loginAdmin = (data) => {
   let dataObj = data
   return async (dispatch, getState) => {
+    //https://brooker-backend.onrenderl.com
     try {
       let response = await fetch('https://brooker-backend.onrender.com/adminlogin', {
         method: "POST",
@@ -126,6 +114,7 @@ export const loginAdmin = (data) => {
         },
         body: JSON.stringify(data)
       })
+
       if (response.status === 404) {
         let data = await response.json()
         return {
@@ -219,8 +208,6 @@ export const signupAdmin = (data) => {
         localStorage.setItem("admin_expiry", JSON.stringify(data.response.expiresIn))
         //dispatch login events
         dispatch({ type: LOGIN_ADMIN, payload: data.response })
-
-
         return {
           bool: true,
           message: data.response,
